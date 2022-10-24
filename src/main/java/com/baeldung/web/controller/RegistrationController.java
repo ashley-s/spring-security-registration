@@ -90,6 +90,45 @@ public class RegistrationController {
         return new ModelAndView("console", model);
     }
 
+    @GetMapping("/homepage")
+    public ModelAndView homepage(final HttpServletRequest request, final ModelMap model, @RequestParam("messageKey") final Optional<String> messageKey) {
+
+        Locale locale = request.getLocale();
+        messageKey.ifPresent( key -> {
+                    String message = messages.getMessage(key, null, locale);
+                    model.addAttribute("message", message);
+                }
+        );
+
+        return new ModelAndView("homepage", model);
+    }
+
+    @GetMapping("/management")
+    public ModelAndView management(final HttpServletRequest request, final ModelMap model, @RequestParam("messageKey") final Optional<String> messageKey) {
+
+        Locale locale = request.getLocale();
+        messageKey.ifPresent( key -> {
+                    String message = messages.getMessage(key, null, locale);
+                    model.addAttribute("message", message);
+                }
+        );
+
+        return new ModelAndView("management", model);
+    }
+
+    @GetMapping("/accessdenied")
+    public ModelAndView accessdenied(final HttpServletRequest request, final ModelMap model, @RequestParam("messageKey") final Optional<String> messageKey) {
+
+        Locale locale = request.getLocale();
+        messageKey.ifPresent( key -> {
+                    String message = messages.getMessage(key, null, locale);
+                    model.addAttribute("message", message);
+                }
+        );
+
+        return new ModelAndView("accessdenied", model);
+    }
+
     @GetMapping("/badUser")
     public ModelAndView badUser(final HttpServletRequest request, final ModelMap model, @RequestParam("messageKey" ) final Optional<String> messageKey, @RequestParam("expired" ) final Optional<String> expired, @RequestParam("token" ) final Optional<String> token) {
 
@@ -144,7 +183,6 @@ public class RegistrationController {
         );
 
         error.ifPresent( e ->  model.addAttribute("error", e));
-
         return new ModelAndView("login", model);
     }
 
